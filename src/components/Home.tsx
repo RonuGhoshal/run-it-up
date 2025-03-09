@@ -7,7 +7,7 @@ export default function Home() {
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const response = await fetch("/api/generate-plan", {
+    const response = await fetch("http://localhost:3000/generate-plan", {
       method: "POST",
       body: JSON.stringify(Object.fromEntries(formData)),
       headers: { "Content-Type": "application/json" }

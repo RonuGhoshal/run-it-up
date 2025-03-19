@@ -21,7 +21,7 @@ type PlanType = {
 export default function Home() {
   const [plan, setPlan] = useState<PlanType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error| null>(null);
 
   async function handleSubmit(event: React.BaseSyntheticEvent) {
     event.preventDefault();
@@ -40,7 +40,7 @@ export default function Home() {
       const data = await response.json();
       setPlan(data);
     } catch (error) {
-      setError(error.message);
+      setError(error as Error);
     } finally {
       setIsLoading(false);
     }

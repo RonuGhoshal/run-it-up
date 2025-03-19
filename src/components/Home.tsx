@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./Home.css"; // Import the CSS file
-import { API_URL } from "../constants";
 type RunType = {
   day: string;
   type: string;
@@ -26,10 +25,11 @@ export default function Home() {
   async function handleSubmit(event: React.BaseSyntheticEvent) {
     event.preventDefault();
     setIsLoading(true);
-    setError(null); // Reset error state before making a new request
+    setError(null);
     try {
       const formData = new FormData(event.target);
-      const response = await fetch(API_URL, {
+      const apiUrl = `${import.meta.env.VITE_API_URL}/generate-plan`;
+      const response = await fetch(apiUrl, {
         method: "POST",
         body: JSON.stringify(Object.fromEntries(formData)),
         headers: { "Content-Type": "application/json" }

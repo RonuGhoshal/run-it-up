@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./Home.css"; // Import the CSS file
+import runItUpImage from "src/assets/runitup.jpg"; // Import the image
+
 type RunType = {
   day: string;
   type: string;
@@ -49,7 +51,7 @@ export default function Home() {
   return (
     <div className="container">
       <header>
-        <img style={{ width: "100%", height: "auto" }} src="src/assets/runitup.jpg" alt="Run It Up" />
+        <img style={{ width: "100%", height: "auto" }} src={runItUpImage} alt="Run It Up" />
       </header>
       <div className="form-container">
         <h2>Running Plan Generator</h2>

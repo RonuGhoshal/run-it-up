@@ -35,6 +35,9 @@ export default function Home() {
 
   return (
     <div className="container">
+      <header>
+        <img style={{ width: "100%", height: "auto" }} src="src/assets/runitup.jpg" alt="Run It Up" />
+      </header>
       <div className="form-container">
         <h2>Running Plan Generator</h2>
         <form onSubmit={handleSubmit}>
@@ -71,9 +74,7 @@ export default function Home() {
                 <ul>
                   {week.runs.map((run, runIndex) => (
                     <li key={runIndex}>
-                      <strong>{run.day}:</strong> {run.type} - {run.distance} miles
-                      <br />
-                      <em>{run.description}</em>
+                      <strong>{run.day}.</strong> {run.type} - {run.distance} miles: <em>{run.description}</em>
                     </li>
                   ))}
                 </ul>

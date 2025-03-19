@@ -20,9 +20,11 @@ type PlanType = {
 
 export default function Home() {
   const [plan, setPlan] = useState<PlanType | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function handleSubmit(event: React.BaseSyntheticEvent) {
     event.preventDefault();
+    setIsLoading(true);
     const formData = new FormData(event.target);
     const response = await fetch(API_URL, {
       method: "POST",
@@ -31,6 +33,7 @@ export default function Home() {
     });
     const data = await response.json();
     setPlan(data);
+    setIsLoading(false);
   }
 
   return (
@@ -64,9 +67,11 @@ export default function Home() {
           <button type="submit">Generate Plan</button>
         </form>
 
-        {plan && (
+        {isLoading && <p className="loading-animation">Generating plan...</p>}
+
+        {plan && !isLoading && (
           <div className="plan-container">
-            <h3>Generated Plan</h3>
+            <h3>Running Plan</h3>
             {plan.weeks.map((week, index) => (
               <div key={index} className="week-plan">
                 <h4>Week {week.weekNumber}</h4>

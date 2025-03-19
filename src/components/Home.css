@@ -105,3 +105,11 @@ body {
     margin-bottom: 20px;
   }
   
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+  
+  .loading-animation {
+    animation: fadeInOut 2s infinite;
+  }

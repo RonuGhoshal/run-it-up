@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Home.css"; // Import the CSS file
-import runItUpImage from "src/assets/runitup.jpg"; // Import the image
+import runItUpImage from "../assets/runitup.jpg"; // Import the image
 
 type RunType = {
   day: string;

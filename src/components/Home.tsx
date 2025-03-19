@@ -21,19 +21,29 @@ type PlanType = {
 export default function Home() {
   const [plan, setPlan] = useState<PlanType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(event: React.BaseSyntheticEvent) {
     event.preventDefault();
     setIsLoading(true);
-    const formData = new FormData(event.target);
-    const response = await fetch(API_URL, {
-      method: "POST",
-      body: JSON.stringify(Object.fromEntries(formData)),
-      headers: { "Content-Type": "application/json" }
-    });
-    const data = await response.json();
-    setPlan(data);
-    setIsLoading(false);
+    setError(null); // Reset error state before making a new request
+    try {
+      const formData = new FormData(event.target);
+      const response = await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: { "Content-Type": "application/json" }
+      });
+      if (!response.ok) {
+        throw new Error("Failed to generate plan");
+      }
+      const data = await response.json();
+      setPlan(data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -68,6 +78,8 @@ export default function Home() {
         </form>
 
         {isLoading && <p className="loading-animation">Generating plan...</p>}
+
+        {error && <p className="error-message">Unable to generate plan.</p>}
 
         {plan && !isLoading && (
           <div className="plan-container">

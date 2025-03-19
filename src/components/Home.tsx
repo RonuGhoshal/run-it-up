@@ -1,10 +1,27 @@
 import { useState } from "react";
 import "./Home.css"; // Import the CSS file
 
-export default function Home() {
-  const [plan, setPlan] = useState(null);
+type RunType = {
+  day: string;
+  type: string;
+  distance: number;
+  description: string;
+};
 
-  async function handleSubmit(event) {
+type WeekType = {
+  weekNumber: number;
+  totalMileage: number;
+  runs: RunType[];
+};
+
+type PlanType = {
+  weeks: WeekType[];
+};
+
+export default function Home() {
+  const [plan, setPlan] = useState<PlanType | null>(null);
+
+  async function handleSubmit(event: React.BaseSyntheticEvent) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const response = await fetch("http://localhost:3000/generate-plan", {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Home.css"; // Import the CSS file
-
+import { API_URL } from "../constants";
 type RunType = {
   day: string;
   type: string;
@@ -24,7 +24,7 @@ export default function Home() {
   async function handleSubmit(event: React.BaseSyntheticEvent) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const response = await fetch("http://localhost:3000/generate-plan", {
+    const response = await fetch(API_URL, {
       method: "POST",
       body: JSON.stringify(Object.fromEntries(formData)),
       headers: { "Content-Type": "application/json" }

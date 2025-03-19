@@ -13,7 +13,7 @@ export default function Home() {
       headers: { "Content-Type": "application/json" }
     });
     const data = await response.json();
-    setPlan(data.plan);
+    setPlan(data);
   }
 
   return (
@@ -47,7 +47,21 @@ export default function Home() {
         {plan && (
           <div className="plan-container">
             <h3>Generated Plan</h3>
-            <pre>{JSON.stringify(plan, null, 2)}</pre>
+            {plan.weeks.map((week, index) => (
+              <div key={index} className="week-plan">
+                <h4>Week {week.weekNumber}</h4>
+                <p>Total Mileage: {week.totalMileage} miles</p>
+                <ul>
+                  {week.runs.map((run, runIndex) => (
+                    <li key={runIndex}>
+                      <strong>{run.day}:</strong> {run.type} - {run.distance} miles
+                      <br />
+                      <em>{run.description}</em>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         )}
       </div>
